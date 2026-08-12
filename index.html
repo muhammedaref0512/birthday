@@ -47,8 +47,8 @@
 
         .password-box h2 { font-family: 'Playfair Display', serif; color: var(--light-beige); margin-bottom: 5px; font-size: 1.8rem; }
         .hint-text { font-size: 0.95rem; color: rgba(232, 220, 196, 0.7); margin-bottom: 25px; font-style: italic; }
-        .password-box input { width: 80%; padding: 12px 15px; border: 1px solid var(--beige); background: transparent; color: var(--light-beige); border-radius: 5px; text-align: center; margin-bottom: 20px; }
-        .password-box button { padding: 10px 30px; background: var(--beige); color: var(--black); border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .password-box input { width: 80%; padding: 12px 15px; border: 1px solid var(--beige); background: transparent; color: var(--light-beige); border-radius: 5px; text-align: center; margin-bottom: 20px; font-family: 'Lora', serif; }
+        .password-box button { padding: 10px 30px; background: var(--beige); color: var(--black); border: none; border-radius: 5px; cursor: pointer; font-weight: bold; font-family: 'Playfair Display', serif; }
 
         #main-content { display: none; opacity: 0; transition: opacity 1.5s ease-in-out; }
         .hero-section { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
@@ -58,21 +58,26 @@
 
         .scroll-section { min-height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; }
         
-        /* تعديل للموبايل */
         .message-section { min-height: auto; padding: 60px 20px; }
-        .message-box { max-width: 700px; width: 90%; padding: 30px 20px; border: 1px solid rgba(232, 220, 196, 0.2); border-radius: 15px; background: linear-gradient(145deg, rgba(20,20,20,1) 0%, rgba(5,5,5,1) 100%); }
+        .message-box { max-width: 700px; width: 90%; padding: 40px 30px; border: 1px solid rgba(232, 220, 196, 0.2); border-radius: 15px; background: linear-gradient(145deg, rgba(20,20,20,1) 0%, rgba(5,5,5,1) 100%); box-sizing: border-box; }
 
-        .counter-value { font-size: 4rem; display: block; margin-bottom: 10px; }
-        .main-message { font-size: 1.4rem; line-height: 1.9; text-align: center; }
-        .ending { display: block; margin-top: 30px; font-size: 1.8rem; font-family: 'Playfair Display', serif; color: var(--light-beige); }
+        .counter-value { font-size: 4rem; display: block; margin-bottom: 10px; font-family: 'Playfair Display', serif; }
+        .counter-label { font-size: 1.5rem; font-style: italic; color: rgba(232, 220, 196, 0.7); letter-spacing: 3px; text-transform: uppercase; }
+        
+        .main-message { font-size: 1.3rem; line-height: 1.9; text-align: center; color: var(--beige); }
+        .main-message p { margin-bottom: 25px; }
+        
+        .ending { display: block; margin-top: 30px; font-size: 1.8rem; font-family: 'Playfair Display', serif; font-style: italic; color: var(--light-beige); }
+        .sub-ending { display: block; margin-top: 20px; font-size: 1.1rem; line-height: 1.8; color: var(--beige); }
         
         .hidden-element { opacity: 0; transform: translateY(50px); transition: all 1s ease-out; }
         .show-element { opacity: 1; transform: translateY(0); }
 
         @media (max-width: 600px) {
-            .title { font-size: 2rem; }
-            .counter-value { font-size: 2.5rem; }
+            .title { font-size: 2.5rem; }
+            .counter-value { font-size: 3rem; }
             .main-message { font-size: 1.1rem; }
+            .message-box { padding: 25px 15px; }
         }
     </style>
 </head>
@@ -85,7 +90,7 @@
             <input type="password" id="password-input" placeholder="Enter Password...">
             <br>
             <button onclick="checkPassword()">Unlock</button>
-            <div id="error-msg" style="color:#d9534f; margin-top:15px;"></div>
+            <div id="error-msg" style="color:#d9534f; margin-top:15px; font-style:italic; font-size:0.9rem;"></div>
         </div>
     </div>
 
@@ -128,8 +133,18 @@
         <section class="scroll-section message-section">
             <div class="message-box hidden-element">
                 <div class="main-message">
-                    <p>We’ve been together for a long time, and we’ve been through so much together. So many things have changed, and so many things have happened, but one thing that never changed is how much I love you.</p>
+                    <p>We’ve been together for a long time, and we’ve been through so much together. So many things have changed, and so many things have happened, but one thing that never changed is how much I love you. If anything, I feel like I love you more with every day that passes.</p>
+                    
+                    <p>Every year we spend together makes me realize how much more attached I am to you and how much you’ve become a part of my life. No matter what happens between us, and no matter how much things change, I still look at you and see the same girl I fell in love with from the very beginning. And having you in my life still makes me genuinely happy.</p>
+                    
+                    <p>I really hope we get to spend the rest of our lives together. I want us to go through all the years that are coming, laugh together, argue over stupid things, make up, grow together, and just experience everything life has to offer with each other.</p>
+                    
                     <span class="ending">Happy birthday, my love❤️</span>
+                    
+                    <span class="sub-ending">
+                        I hope I get to celebrate every birthday with you, year after year, for the rest of our lives.<br><br>
+                        I love you, and you’ll always be the best thing that ever happened to me❤️
+                    </span>
                 </div>
             </div>
         </section>
@@ -139,43 +154,62 @@
         function checkPassword() {
             const input = document.getElementById('password-input').value;
             if(input === "2062023") {
-                document.getElementById('password-screen').style.opacity = '0';
+                const passScreen = document.getElementById('password-screen');
+                const mainContent = document.getElementById('main-content');
+                
+                passScreen.style.opacity = '0';
                 setTimeout(() => {
-                    document.getElementById('password-screen').style.display = 'none';
-                    document.getElementById('main-content').style.display = 'block';
-                    setTimeout(() => { document.getElementById('main-content').style.opacity = '1'; }, 50);
+                    passScreen.style.display = 'none';
+                    mainContent.style.display = 'block';
+                    setTimeout(() => { mainContent.style.opacity = '1'; }, 50);
                 }, 1000);
             } else {
-                document.getElementById('error-msg').innerText = "Incorrect Password!";
+                document.getElementById('error-msg').innerText = "Incorrect Password. Try again!";
             }
         }
+
+        document.getElementById('password-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
 
         function animateValue(obj, start, end, duration) {
             let startTimestamp = null;
             const step = (timestamp) => {
                 if (!startTimestamp) startTimestamp = timestamp;
                 const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                obj.innerHTML = Math.floor(progress * (end - start) + start).toLocaleString();
-                if (progress < 1) window.requestAnimationFrame(step);
+                const easeProgress = progress * (2 - progress);
+                const currentVal = Math.floor(easeProgress * (end - start) + start);
+                
+                obj.innerHTML = currentVal.toLocaleString('en-US');
+                
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                } else {
+                    obj.innerHTML = end.toLocaleString('en-US');
+                }
             };
             window.requestAnimationFrame(step);
         }
 
-        // تم تقليل الـ threshold إلى 0.2 ليظهر المحتوى بسهولة على الموبايل
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('show-element');
+                    
                     const counter = entry.target.querySelector('.counter-value');
                     if (counter && !counter.classList.contains('counted')) {
-                        animateValue(counter, 0, parseInt(counter.getAttribute('data-target')), 2500);
-                        counter.classList.add('counted');
+                        const target = parseInt(counter.getAttribute('data-target'), 10);
+                        animateValue(counter, 0, target, 2500); 
+                        counter.classList.add('counted'); 
                     }
                 }
             });
         }, { threshold: 0.2 });
 
-        document.querySelectorAll('.hidden-element').forEach((el) => observer.observe(el));
+        const hiddenElements = document.querySelectorAll('.hidden-element');
+        hiddenElements.forEach((el) => observer.observe(el));
     </script>
 </body>
 </html>
